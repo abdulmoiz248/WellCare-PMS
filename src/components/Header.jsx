@@ -8,7 +8,7 @@ export default function Header() {
 	<div className="container flex justify-between h-16 mx-auto md:justify-center md:space-x-8">
 		<ul className="items-stretch hidden space-x-3 md:flex">
 			<li className="flex">
-				<a rel="noopener noreferrer" href="/" className="flex items-center px-4 -mb-1 border-b-2 dark:border-">Home</a>
+				<a rel="noopener noreferrer" href="/" className="hover:border-black flex items-center px-4 -mb-1 border-b-2 dark:border-">Home</a>
 			</li>
 			
 		</ul>
@@ -20,7 +20,7 @@ export default function Header() {
 		</a>
 		<ul className="items-stretch hidden space-x-3 md:flex">
 			<li className="flex">
-				<a rel="noopener noreferrer" href="#aboutUs" className="flex items-center px-4 -mb-1 border-b-2 dark:border-">About Us</a>
+				<a rel="noopener noreferrer" href="/#aboutUs" className=" hover:border-black flex items-center px-4 -mb-1 border-b-2 dark:border-">About Us</a>
 			</li>
 			
 		</ul>

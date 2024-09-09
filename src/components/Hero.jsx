@@ -22,8 +22,8 @@ export default function Hero() {
           <br  className="hidden md:inline lg:hidden" /> data, appointments, and medical records, ensuring optimal care delivery and patient engagement.
         </p>
         <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
-          <a rel="noopener noreferrer" href="#" className="px-8 py-3 text-lg font-semibold rounded dark:bg-violet-600 dark:text-gray-50 hover:bg-[#b6b6b6]">Register</a>
-          <a rel="noopener noreferrer" href="#" className="px-8 py-3 text-lg font-semibold border rounded dark:border-gray-800 hover:bg-[#b6b6b6]">Login</a>
+          <a rel="noopener noreferrer" href="/patient/register" className="px-8 py-3 text-lg font-semibold rounded dark:bg-violet-600 dark:text-gray-50 hover:bg-[#b6b6b6]">Register</a>
+          <a rel="noopener noreferrer" href="/patient/login" className="px-8 py-3 text-lg font-semibold border rounded dark:border-gray-800 hover:bg-[#b6b6b6]">Login</a>
         </div>
       </div>
     </div>
