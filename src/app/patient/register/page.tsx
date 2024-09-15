@@ -96,11 +96,7 @@ export default function RegisterForm() {
     try {
       setLoading(true);
       const response = await axios.post('/api/patient/register', { email, name, password });
-    
-      dispatch(patientAction.setPatientDetails(response.data.patient));
-      router.push('/patient/verifyOtp');
-    } catch (error) {
-      console.error('Error:', error);
+      console.log('Response:', response.data);
     } finally {
       setLoading(false);
     }

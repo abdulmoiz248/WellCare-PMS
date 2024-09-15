@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 'use client';
 
 import React, { useEffect } from 'react';
@@ -11,6 +12,14 @@ const Loading = () => {
     };
 
     loadLdrs();
+=======
+import React, { useEffect } from 'react';
+import { cardio } from 'ldrs';
+
+const CardioComponent = () => {
+  useEffect(() => {
+    cardio.register();
+>>>>>>> 05a279f6cce6733dad6f06701041191d8445d065
   }, []);
 
   return (
@@ -25,4 +34,8 @@ const Loading = () => {
   );
 };
 
+<<<<<<< HEAD
 export default Loading;
+=======
+export default CardioComponent;
+>>>>>>> 05a279f6cce6733dad6f06701041191d8445d065

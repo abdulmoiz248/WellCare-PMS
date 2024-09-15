@@ -3,8 +3,13 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import  { toast } from 'react-hot-toast';
 import Modal from '@/components/Modal';
+<<<<<<< HEAD
 import { useSelector } from 'react-redux';
 
+=======
+
+// Importing `bouncy` dynamically, but initializing it inside useEffect to ensure it runs only on the client side
+>>>>>>> 05a279f6cce6733dad6f06701041191d8445d065
 const loadBouncy = async () => {
   if (typeof window !== 'undefined') {
     const { bouncy } = await import('ldrs');
@@ -13,12 +18,15 @@ const loadBouncy = async () => {
 };
 
 function Page() {
+<<<<<<< HEAD
 
   const patient= useSelector((store:any)=>store.patient)
   
 
 
 
+=======
+>>>>>>> 05a279f6cce6733dad6f06701041191d8445d065
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
@@ -38,6 +46,10 @@ function Page() {
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 05a279f6cce6733dad6f06701041191d8445d065
     try {
       if (otp == '') {
       setMessage( 'OTP is required')
@@ -61,7 +73,11 @@ function Page() {
         return;
       }
       const response = await axios.get('/api/patient/verifyOtp', {
+<<<<<<< HEAD
         params: { otp,email:patient.email }
+=======
+        params: { otp }
+>>>>>>> 05a279f6cce6733dad6f06701041191d8445d065
       });
 
       if (response.data.success) {
