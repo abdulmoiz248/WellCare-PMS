@@ -7,83 +7,101 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
 
 const emailSchema = z.string().email('Invalid email address')
 const nameSchema = z.string().min(6, 'Name must be at least 6 characters')
 const passwordSchema = z.string().min(6, 'Password must be at least 6 characters')
 
 export default function RegisterForm() {
-  const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
-  const [password, setPassword] = useState('')
-  const [showNameField, setShowNameField] = useState(false)
-  const [showPasswordField, setShowPasswordField] = useState(false)
-  const [showRegisterButton, setShowRegisterButton] = useState(false)
-  const [errors, setErrors] = useState({ email: '', name: '', password: '' })
+  const loadBouncy = async () => {
+    if (typeof window !== 'undefined') {
+      const { bouncy } = await import('ldrs');
+      bouncy.register();
+    }
+  };
+
+  useEffect(() => {
+    loadBouncy();
+  }, []);
+
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [showNameField, setShowNameField] = useState(false);
+  const [showPasswordField, setShowPasswordField] = useState(false);
+  const [showRegisterButton, setShowRegisterButton] = useState(false);
+  const [errors, setErrors] = useState({ email: '', name: '', password: '' });
 
   const validateField = (value: string, schema: z.ZodSchema, field: keyof typeof errors) => {
     try {
-      schema.parse(value)
-      setErrors(prev => ({ ...prev, [field]: '' }))
-      return true
+      schema.parse(value);
+      setErrors(prev => ({ ...prev, [field]: '' }));
+      return true;
     } catch (error) {
       if (error instanceof z.ZodError) {
-        setErrors(prev => ({ ...prev, [field]: error.errors[0].message }))
+        setErrors(prev => ({ ...prev, [field]: error.errors[0].message }));
       }
-      return false
+      return false;
     }
-  }
+  };
 
   useEffect(() => {
     const checkEmail = async () => {
       if (validateField(email, emailSchema, 'email')) {
         try {
-          const response = await axios.post('/api/patient/verifyEmail', { email })
-          const { success } = response.data
+          const response = await axios.post('/api/patient/verifyEmail', { email });
+          const { success } = response.data;
           if (success) {
-            setShowNameField(true)
+            setShowNameField(true);
           } else {
-            setErrors(prev => ({ ...prev, email: 'Email already exists' }))
-            setShowNameField(false)
+            setErrors(prev => ({ ...prev, email: 'Email already exists' }));
+            setShowNameField(false);
           }
         } catch (error) {
-
-          setErrors(prev => ({ ...prev, email: 'Email Already Exists' }))
-          setShowNameField(false)
+          setErrors(prev => ({ ...prev, email: 'Email already exists' }));
+          setShowNameField(false);
         }
       } else {
-        setShowNameField(false)
+        setShowNameField(false);
       }
-    }
+    };
 
-    checkEmail()
-  }, [email])
+    checkEmail();
+  }, [email]);
+
+  const router = useRouter();
 
   useEffect(() => {
     if (showNameField && validateField(name, nameSchema, 'name')) {
-      setShowPasswordField(true)
+      setShowPasswordField(true);
     } else {
-      setShowPasswordField(false)
+      setShowPasswordField(false);
     }
-  }, [name, showNameField])
+  }, [name, showNameField]);
 
   useEffect(() => {
     if (showPasswordField && validateField(password, passwordSchema, 'password')) {
-      setShowRegisterButton(true)
+      setShowRegisterButton(true);
     } else {
-      setShowRegisterButton(false)
+      setShowRegisterButton(false);
     }
-  }, [password, showPasswordField])
+  }, [password, showPasswordField]);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const response = await axios.post('/api/patient/register', { email, name, password })
-      console.log('Response:', response.data)
+      setLoading(true);
+      const response = await axios.post('/api/patient/register', { email, name, password });
+      console.log('Response:', response.data);
+      router.push('/patient/verifyOtp');
     } catch (error) {
-      console.error('Error:', error)
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -138,11 +156,18 @@ export default function RegisterForm() {
             )}
 
             {/* Register Button */}
-            {showRegisterButton && (
-              <Button type="submit" className="w-full">
-                Register
-              </Button>
+            {loading ? (
+              <div className="text-white py-2 rounded-lg transition duration-300 flex justify-center items-center">
+                <l-bouncy size="45" speed="1.75" color="blue" />
+              </div>
+            ) : (
+              showRegisterButton && (
+                <Button type="submit" className="w-full">
+                  Register
+                </Button>
+              )
             )}
+
           </form>
 
           {/* Sign In Link */}
@@ -150,12 +175,12 @@ export default function RegisterForm() {
             <p className="text-sm text-gray-600">
               Already registered?{' '}
               <a href="/patient/login" className="text-blue-500 hover:underline">
-                Login In
+                Log In
               </a>
             </p>
           </div>
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
