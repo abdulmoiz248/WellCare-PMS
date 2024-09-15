@@ -22,7 +22,8 @@ export async function POST(request: Request){
      await sendOTPEmail(email,otpCode);
      return Response.json({
         message:'Patient Registered Successfully'
-        ,success:true
+        ,success:true,
+        patient:newPatient
      },{status:200});
    } catch (error:any) {
     console.log(error)

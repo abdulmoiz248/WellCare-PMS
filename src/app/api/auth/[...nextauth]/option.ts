@@ -86,7 +86,7 @@ export const authOption:AuthOptions={
           if(!isValid){
             throw new Error('Incorrect password');
           }
-           
+
           return patient;
           
         } catch (error: any) {
@@ -99,7 +99,22 @@ export const authOption:AuthOptions={
     })
       
   ],
+  callbacks: {
+        async jwt({ token, user }) {
+          // if (user) {
+          //   token.id = user._id;
+          // }
+          return token;
+        },
+        async session({ session, token }) {
+          // if (token) {
+          //   session.user.id = token.id;
+          // }
+          return session;
+        },
+      },
   pages: {
     signIn: "/patient/login"  
   },
+  secret:process.env.nextAuth!
 }
