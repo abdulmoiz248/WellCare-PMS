@@ -96,7 +96,9 @@ export default function RegisterForm() {
     try {
       setLoading(true);
       const response = await axios.post('/api/patient/register', { email, name, password });
+      dispatch(patientAction.setPatientDetails(response.data.patient));
       console.log('Response:', response.data);
+      router.push('/patient/verifyOtp');
     } finally {
       setLoading(false);
     }
@@ -169,7 +171,7 @@ export default function RegisterForm() {
 
           </form>
 
-          {/* Sign In Link */}
+       
           <div className="mt-4 text-center">
             <p className="text-sm text-gray-600">
               Already registered?{' '}
