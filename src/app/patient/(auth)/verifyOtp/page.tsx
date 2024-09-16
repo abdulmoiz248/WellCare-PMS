@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import Modal from '@/components/Modal';
-<<<<<<< HEAD
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 ;
