@@ -1,4 +1,3 @@
-
 import connect from "@/dbConfig/dbConfig";
 import PatientModel from "@/Model/Patient";
 

@@ -7,10 +7,13 @@ export interface Patient extends Document{
     address: string;
     phone: string;
     email: string;
+    cnic:string;
     password: string;
   //  medicalHistory: string;
+   bloodGroup:string;
    isVerified:boolean;
    otpCode:string;
+   city:string;
    otpExpiry:Date;
    forgotPassOtp:string;
    forgotPassOtpExpiry:string;
@@ -19,6 +22,7 @@ export interface Patient extends Document{
 }
 
 export const patientSchema:Schema<Patient>=new Schema({
+    city: {type: String},
     name: {type: String, required: [true,'Please enter patient name']},
     dob: {type: Date},
     gender: {type: String},
@@ -33,6 +37,8 @@ export const patientSchema:Schema<Patient>=new Schema({
     otpExpiry: {type: Date , default: () => new Date(Date.now() + 5 * 60 * 1000)},
     forgotPassOtp: {type: String},
     forgotPassOtpExpiry: {type: String}
+,    bloodGroup: {type: String},
+      cnic:{type: String}
  
 })
 

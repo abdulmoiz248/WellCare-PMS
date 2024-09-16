@@ -2,6 +2,7 @@ import connect from '@/dbConfig/dbConfig';
 import PatientModel from '@/Model/Patient';
 import bcrypt from 'bcryptjs';
 import {sendOTPEmail} from '@/helper/otpEmail';
+import { NextResponse } from 'next/server';
 export async function POST(request: Request){
     connect();
    try {
@@ -20,11 +21,13 @@ export async function POST(request: Request){
 
      await newPatient.save();
      await sendOTPEmail(email,otpCode);
-     return Response.json({
+     let res= NextResponse.json({
         message:'Patient Registered Successfully'
         ,success:true,
         patient:newPatient
      },{status:200});
+     res.cookies.set('patient',email); 
+     return res;
    } catch (error:any) {
     console.log(error)
     return Response.json({

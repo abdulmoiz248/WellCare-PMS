@@ -1,10 +1,12 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import  { toast } from 'react-hot-toast';
+
 import Modal from '@/components/Modal';
 <<<<<<< HEAD
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
+;
 
 =======
 
@@ -28,7 +30,7 @@ function Page() {
 =======
 >>>>>>> 05a279f6cce6733dad6f06701041191d8445d065
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+   let router = useRouter();
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   let [message,setMessage]=useState('');
@@ -84,6 +86,7 @@ function Page() {
         setTitle('Verified');
         setMessage( 'OTP Verified')
         openModal();
+        router.push('/patient/completeRegister')
       } else {
         setMessage( 'Invalid OTP')
         openModal();

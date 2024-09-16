@@ -1,5 +1,8 @@
 import React from 'react'
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3d2a6e7 (additional register info page without states)
 export default function Page() {
   return (
     <section className="p-6 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-50">
@@ -57,7 +60,10 @@ export default function Page() {
           </div>
         </fieldset>
 
+<<<<<<< HEAD
         {/* Save Button */}
+=======
+>>>>>>> 3d2a6e7 (additional register info page without states)
         <div className="flex justify-end">
           <button
             type="submit"
