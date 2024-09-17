@@ -68,14 +68,17 @@ function Page() {
       if (response.data.success) {
         setTitle('Verified');
         setMessage( 'OTP Verified')
-        openModal();
-        router.push('/patient/completeRegister')
+         openModal();
+         
+        setTimeout(()=>{router.push('/patient/completeRegister')},1500)
       } else {
         setMessage( 'Invalid OTP')
         openModal();
       }
     } catch (error: any) {
-      setMessage(error.message);
+      setMessage(
+        'Not Valid OTP'
+      );
       openModal();
     } finally {
       setLoading(false);
