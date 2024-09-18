@@ -17,15 +17,15 @@ const loadBouncy = async () => {
 function Page() {
 
 
-  
+  let router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
-   let router = useRouter();
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  const [title, setTitle] = useState('OTP SENT');
   let [message,setMessage]=useState('');
   const [loading, setLoading] = useState(false);
   const [otp, setOtp] = useState('');
-  const [title, setTitle] = useState('OTP SENT');
+  
   useEffect(() => {
     setTitle('OTP SENT');
     setMessage('OTP SENT TO YOUR EMAIL'); 

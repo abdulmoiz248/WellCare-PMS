@@ -28,9 +28,16 @@ export function middleware(request: NextRequest) {
      if(!patient.isVerified){ return NextResponse.redirect(new URL('/patient/verifyOtp', request.url))}
     }
 
+    const token = request.cookies.get('token')?.value;
+    if (pathname.startsWith('/admin')) {
+      if (!token && pathname !== '/admin/login') {
+        return NextResponse.redirect(new URL('/admin/login', request.url));
+      }
+    }
+         
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/patient/:path*'],
+  matcher: ['/patient/:path*','/admin/:path*'],
 };
