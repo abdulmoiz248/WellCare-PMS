@@ -6,7 +6,6 @@ export function middleware(request: NextRequest) {
   const patientCookie = request.cookies.get('patient')?.value;
   let patient: any = patientCookie ? JSON.parse(patientCookie) : null;
 
-  console.log("patient:", patient?.isVerified);
   if (pathname.startsWith('/patient/register') && patient) {
     const isVerified = patient.isVerified;
     
@@ -17,6 +16,17 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/patient/verifyOtp', request.url));
     }
   }
+
+  if (pathname.startsWith('/patient/verifyOtp')) {
+    if(!patient)
+      { return NextResponse.redirect(new URL('/patient/register', request.url))}
+  
+   } 
+ 
+   if (pathname.startsWith('/patient/completeRegister')) {
+     if(!patient){ return NextResponse.redirect(new URL('/patient/register', request.url))}
+     if(!patient.isVerified){ return NextResponse.redirect(new URL('/patient/verifyOtp', request.url))}
+    }
 
   return NextResponse.next();
 }

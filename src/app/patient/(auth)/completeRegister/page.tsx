@@ -1,12 +1,13 @@
 'use client'
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+
 import Modal from '@/components/Modal';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { useAppSelector } from '@/hooks/useAppSelector';
 
 export default function Page() {
-  let patient = useSelector((store: any) => store.patient);
+  let patient = useAppSelector((store: any) => store.patient);
   let router=useRouter();
   const [formData, setFormData] = useState({
     CNIC: '',

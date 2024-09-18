@@ -1,5 +1,6 @@
 import React from 'react'
 import Logo from './Logo'
+import Link from 'next/link'
 
 export default function Header() {
   return (
@@ -12,7 +13,7 @@ export default function Header() {
 			</li>
 			
 		</ul>
-		<a rel="noopener noreferrer" href="/" aria-label="Back to homepage" className="flex items-center p-2">	
+		<a rel="noopener noreferrer" href="/admin/login" aria-label="Back to homepage" className="flex items-center p-2">	
 			
 				<Logo></Logo>
 			
@@ -24,9 +25,9 @@ export default function Header() {
 			</li>
 			
 		</ul>
-		 <h1  className="p-4 md:hidden text-2xl font-bold">
+		 <Link href="/"  className="p-4 md:hidden text-2xl font-bold">
 			WellCare
-		</h1> 
+		</Link> 
 	</div>
 </header>
     </div>
