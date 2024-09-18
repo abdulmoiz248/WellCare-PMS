@@ -5,6 +5,7 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const patientCookie = request.cookies.get('patient')?.value;
   let patient:any = {};
+  
   if (patientCookie) {
     try {
       patient = patientCookie;
