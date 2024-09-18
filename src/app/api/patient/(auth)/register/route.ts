@@ -27,7 +27,10 @@ export async function POST(request: Request){
         patient:newPatient
      },{status:200});
 
-     res.cookies.set('patient',newPatient); 
+     res.cookies.set('patient', JSON.stringify({
+      email,
+      isVerified: false
+  }));
      return res;
    } catch (error:any) {
     console.log(error)

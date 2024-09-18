@@ -1,5 +1,6 @@
 import connect from "@/dbConfig/dbConfig";
 import PatientModel from "@/Model/Patient";
+import { NextResponse } from "next/server";
 
 export async function POST(request: Request){
 
@@ -26,11 +27,13 @@ export async function POST(request: Request){
       patient.cnic=CNIC;
       await patient.save();
 
-      return Response.json({
+      let res=NextResponse.json({
         message:'Patient Details Updated',
         success:true,
         patient:patient
       },{status:200})
+      res.cookies.delete('patient');
+      return res;
 
       //gender
     }catch (error:any) {

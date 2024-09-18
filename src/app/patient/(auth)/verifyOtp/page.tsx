@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import Modal from '@/components/Modal';
-import { useSelector } from 'react-redux';
+
 import { useRouter } from 'next/navigation';
 ;
 
@@ -16,7 +16,7 @@ const loadBouncy = async () => {
 
 function Page() {
 
-  const patient= useSelector((store:any)=>store.patient)
+
   
   const [isModalOpen, setIsModalOpen] = useState(false);
    let router = useRouter();
@@ -60,8 +60,16 @@ function Page() {
         setLoading(false);
         return;
       }
+      let email = '';
+      if (typeof window !== 'undefined') {
+        const patientCookie = document.cookie.split('; ').find(row => row.startsWith('patient='));
+        if (patientCookie) {
+          const patientData = JSON.parse(decodeURIComponent(patientCookie.split('=')[1]));
+          email = patientData.email || '';
+        }
+      }
       const response = await axios.get('/api/patient/verifyOtp', {
-        params: { otp,email:patient.email }
+        params: { otp,email:email }
 
       });
 

@@ -8,7 +8,16 @@ export async function GET(request:Request){
     const email = url.searchParams.get('email');
     try {
        connect();
+
         let patient=await PatientModel.findOne({otpCode:otp,email});
+        console.log("patient: from otp",patient ,email,otp);
+        if(!patient){
+            return Response.json({
+                message: "Patient not found",
+                success: false
+            },{status:404})
+        }
+
         if(patient.otpExpiry>Date.now()){
             patient.isVerified=true;
             await patient.save();
@@ -17,7 +26,11 @@ export async function GET(request:Request){
                 success: true
             })
            
-            res.cookies.set('patient',patient); 
+            res.cookies.set('patient', JSON.stringify({
+                email,
+                isVerified: patient.isVerified
+            }));
+
             return res;
         }
         return Response.json({
