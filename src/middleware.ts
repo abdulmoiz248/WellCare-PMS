@@ -1,24 +1,35 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
-  const patient=request.cookies.get('patient')?.value;
-  
-  
-  if (pathname.startsWith('/patient/verifyOtp')) {
-   if(!patient){ return NextResponse.redirect(new URL('/patient/register', request.url))}
- 
-  } 
-
-  if (pathname.startsWith('/patient/completeRegister')) {
-    if(!patient){ return NextResponse.redirect(new URL('/patient/register', request.url))}
+  const { pathname } = request.nextUrl;
+  const patientCookie = request.cookies.get('patient')?.value;
+  let patient:any = {};
+  if (patientCookie) {
+    try {
+      patient = patientCookie;
+    } catch (error) {
+      console.error('Failed to parse patient cookie:', error);
+      return NextResponse.redirect(new URL('/error', request.url));
+    }
   }
 
-  return NextResponse.next()
+  const url = request.nextUrl.clone();
+
+  if (pathname.startsWith('/patient/register') && patient) {
+    const { isVerified } = patient;
+    if (isVerified) {
+      const response = NextResponse.redirect(new URL('/patient/completeRegister', request.url));
+      response.cookies.delete('patient');
+      return response;
+    } else {
+      return NextResponse.redirect(new URL('/patient/verifyOtp', request.url));
+    }
+  }
+
+  return NextResponse.next();
 }
 
-// Updated matcher paths
 export const config = {
-  matcher: ['/patient/register', '/patient/verifyOtp', '/patient/completeRegister'],
-}
+  matcher: ['/patient/:path*'],
+};

@@ -26,7 +26,8 @@ export async function POST(request: Request){
         ,success:true,
         patient:newPatient
      },{status:200});
-     res.cookies.set('patient',email); 
+
+     res.cookies.set('patient',newPatient); 
      return res;
    } catch (error:any) {
     console.log(error)
