@@ -4,6 +4,7 @@ import Modal from '@/components/Modal';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
+
 export default function Page() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,8 +29,11 @@ export default function Page() {
 
   try {
       let res=await axios.post('/api/admin/login',{email,password});
+     
       if(res.data.success){
+        console.log("inside true");
         router.push('/admin/dashboard');
+        console.log("afrer push");
       }else{
         setMessage("Invalid Email or Password");
         openModal();
