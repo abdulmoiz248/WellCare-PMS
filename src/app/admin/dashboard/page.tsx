@@ -23,19 +23,7 @@ export default function AdminDashboard({ user }: { user: any }) {
       >
         Add Doctor
       </button>
-       <button onClick={async()=>{
-        try {
-           let res=await axios.post('/api/admin/logout');
-           if(res.data.success){
-            router.push('/admin/login');
-           }
-        } catch (error) {
-           console.log(error);
-        }
-         
-       }}>
-          logout
-      </button>
+       
     </div>
   );
 }

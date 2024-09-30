@@ -23,6 +23,7 @@ export async function POST(req: Request) {
             {id:admin._id,email:admin.email}
             ,process.env.jwtSecret!);
         const serializedToken = serialize('token', token, {
+
             httpOnly: true,
             secure: process.env.NODE_ENV !== 'development',
             sameSite: 'strict',

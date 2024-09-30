@@ -33,7 +33,12 @@ export function middleware(request: NextRequest) {
       if (!token && pathname !== '/admin/login') {
         return NextResponse.redirect(new URL('/admin/login', request.url));
       }
+      if(token && pathname === '/admin/login'){
+        return NextResponse.redirect(new URL('/admin/dashboard', request.url));
+      }
     }
+
+
          
   return NextResponse.next();
 }
